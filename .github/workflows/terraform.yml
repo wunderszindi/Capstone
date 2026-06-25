@@ -1,34 +1,32 @@
-name: 'Infrastructure Configuring using Terraform on AWS'
+name: Infrastructure Terraform
 
 on:
   workflow_dispatch:
     inputs:
       action:
         type: choice
-        description: 'Terraform Action'
+        description: Terraform Action
         options:
           - plan
           - apply
           - destroy
         required: true
-        default: 'plan'
+        default: plan
 
 permissions:
   contents: read
 
 jobs:
-  infrastructure-setup-using-terraform:
-    name: Terraform ${{ github.event.inputs.action }}
+  terraform:
+    name: Terraform
     runs-on: ubuntu-24.04
     environment: production
-
     defaults:
       run:
         shell: bash
         working-directory: Terraform
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Configure AWS Credentials
@@ -39,12 +37,24 @@ jobs:
           aws-region: us-east-1
 
       - name: Setup Terraform
-        uses: hashicorp/setup-ter        uses: hashicorp/setup-ter        useser        uses: hashicorp/setup-ter        uses: hashicorp: terra        uses: hashiname: Terraform Validate
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Plan
-        if: ${{ git        if:nputs.        i 'plan' }}
-        run: terra        run: terra   e
-        run: terra    rm         run          run: te.event.inputs.action == 'apply' }}
-        run: t        run: t        run: t        - name: Terraform         run: t        rugi        nt.inputs.action == 'destroy' }}
-        run:         run:stroy -auto-approve
+        if: ${{ github.event.inputs.action == 'plan' }}
+        run: terraform plan -input=false
+
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.action == 'apply' }}
+        run: terraform apply -auto-approve
+
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        run: terraform destroy -auto-approve
