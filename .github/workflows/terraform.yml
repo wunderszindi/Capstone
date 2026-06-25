@@ -1,4 +1,4 @@
-name: '🔨 Infrastructure Configuring using Terraform on AWS'
+name: 'Infrastructure Configuring using Terraform on AWS'
 
 on:
   workflow_dispatch:
@@ -39,23 +39,12 @@ jobs:
           aws-region: us-east-1
 
       - name: Setup Terraform
-        uses: hashicorp/setu        uses: hashicorp/setu        uses: hasorm_version: "1.13.3"
-
-      - name: Cache Terraform
-        uses: act        uses: act     with:
-          path: |
-            ~/.terraform.d/plugin-cache
-            .terraform
-          key: $       er.os }}-t          key: $hFiles('**/*.tf') }}
-          restore-keys:           resto{{ runner.          rform-
-
-      - name:    raform Init
-        run: terraform init
-
-                                                     ra                                              m Validate
+        uses: hashicorp/setup-ter        uses: hashicorp/setup-ter        useser        uses: hashicorp/setup-ter        uses: hashicorp: terra        uses: hashiname: Terraform Validate
         run: terraform validate
 
-      - na      - na      - na      - na     git      - t.i      - na      - na      - na          - na      - na      - na  
-
-                                      if:                                      if:             r        aform                                       if:                    if: ${{ github.event.inputs.action == 'destroy' }}
-        run: terraform destroy -auto-approve
+      - name: Terraform Plan
+        if: ${{ git        if:nputs.        i 'plan' }}
+        run: terra        run: terra   e
+        run: terra    rm         run          run: te.event.inputs.action == 'apply' }}
+        run: t        run: t        run: t        - name: Terraform         run: t        rugi        nt.inputs.action == 'destroy' }}
+        run:         run:stroy -auto-approve
