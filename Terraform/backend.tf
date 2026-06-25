@@ -8,11 +8,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "netflix-clone-tfstate"
-    key            = "dev/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-state-lock"
-    encrypt        = true
+    bucket       = "netflix-clone-tfstate"
+    key          = "dev/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
   }
 }
 
