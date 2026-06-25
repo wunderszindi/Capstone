@@ -13,4 +13,4 @@ variable "ec2_instance_type" {
   type = list(string)
 }
 variable "ec2_volume_size" {}
-variable "ec2_volume_type" {}
+variable "ec2_volume_type" {}variable "key-name" {}
