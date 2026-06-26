@@ -8,3 +8,4 @@ ec2-instance-count    = 4
 ec2_instance_type     = ["t3a.medium", "t3a.small", "t3a.small", "t3a.small"]
 ec2_volume_size       = 30
 ec2_volume_type       = "gp3"
+key-name = "cicd"
